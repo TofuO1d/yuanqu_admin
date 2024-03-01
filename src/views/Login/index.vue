@@ -9,15 +9,15 @@
         </el-form-item>
 
         <el-form-item label="密码" prop="password">
-          <el-input v-model="loginForm.password" />
+          <el-input v-model="loginForm.password" show-password />
         </el-form-item>
 
         <el-form-item prop="remember">
-          <el-checkbox>记住我</el-checkbox>
+          <el-checkbox v-model="checked">记住我</el-checkbox>
         </el-form-item>
 
         <el-form-item>
-          <el-button type="p rimary" class="login_btn" @click="handleLogin"
+          <el-button type="primary" class="login_btn" @click="handleLogin"
             >登录</el-button
           >
         </el-form-item>
@@ -50,16 +50,32 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      checked: false
+    }
+  },
+  created () {
+    const loginData = localStorage.getItem('form_key')
+    if (loginData) {
+      const { username, password } = JSON.parse(loginData)
+      this.loginForm.username = username
+      this.loginForm.password = password
     }
   },
   methods: {
     handleLogin () {
       this.$refs.form.validate(async flag => {
-        if (flag) {
-          this.$store.dispatch('user/loginAction', this.loginForm)
+        if (!flag) return
+        await this.$store.dispatch('user/loginAction', this.loginForm)
+        if (this.checked) {
+          localStorage.setItem('form_key', JSON.stringify(this.loginForm))
         } else {
-          return
+          localStorage.removeItem('form_key')
+        }
+        if (this.$route.query.redirect) {
+          this.$router.push(this.$route.query.redirect)
+        } else {
+          this.$router.push('/')
         }
       })
     }
