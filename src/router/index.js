@@ -8,6 +8,14 @@ import Layout from '@/layout'
 
 export const routes = [
   {
+    path: '/exterpriseDetail',
+    component: () => import('@/views/Park/Enterprise/Detail')
+  },
+  {
+    path: '/exterpriseAdd',
+    component: () => import('@/views/Park/Enterprise/Add')
+  },
+  {
     path: '/login',
     component: () => import('@/views/Login/index'),
     hidden: true
