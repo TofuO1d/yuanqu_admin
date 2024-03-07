@@ -166,6 +166,7 @@ import {
   outRentAPI,
   delRentAPI
 } from '@/api/enterprise'
+import { mapState } from 'vuex'
 export default {
   name: 'Building',
   data () {
@@ -198,7 +199,11 @@ export default {
       buildList: []
     }
   },
+  computed: {
+    ...mapState('user', ['profile'])
+  },
   mounted () {
+    console.log('created', this.profile.permissions)
     this.getExterpriseList()
   },
   methods: {
