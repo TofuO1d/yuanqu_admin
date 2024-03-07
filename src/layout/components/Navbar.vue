@@ -27,6 +27,7 @@ export default {
   methods: {
     // 退出登录
     logout () {
+      this.$store.commit('user/clearMenuList')
       this.$store.commit('user/removeToken')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }

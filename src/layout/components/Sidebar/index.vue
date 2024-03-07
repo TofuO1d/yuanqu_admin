@@ -27,10 +27,10 @@ import SidebarItem from './SidebarItem'
 export default {
   components: { SidebarItem, Logo },
   computed: {
-    routes() {
-      return this.$router.options.routes
+    routes () {
+      return this.$store.state.user.menuList
     },
-    activeMenu() {
+    activeMenu () {
       const route = this.$route
       const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
@@ -42,4 +42,3 @@ export default {
   }
 }
 </script>
-
