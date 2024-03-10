@@ -5,6 +5,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './permission'
 import '@/styles/index.scss' // global css
 import '@/directive'
+// 启动微前端配置
+import './registerMicroApp'
 import App from './App'
 
 import store from './store'

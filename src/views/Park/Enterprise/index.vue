@@ -13,7 +13,10 @@
       <el-button type="primary" @click="doSearch">查询</el-button>
     </div>
     <div class="create-container">
-      <el-button type="primary" @click="$router.push('/exterpriseAdd')"
+      <el-button
+        v-permission="'park:enterprise:add_edit'"
+        type="primary"
+        @click="$router.push('/exterpriseAdd')"
         >添加企业</el-button
       >
     </div>
@@ -43,6 +46,7 @@
               <el-table-column label="操作" width="180">
                 <template #default="scope">
                   <el-button
+                    v-permission="'park:rent:add_surrender'"
                     size="mini"
                     type="text"
                     :disabled="scope.row.status === 3"
@@ -50,6 +54,7 @@
                     >退租</el-button
                   >
                   <el-button
+                    v-permission="'park:rent:remove'"
                     size="mini"
                     type="text"
                     :disabled="scope.row.status !== 3"
@@ -67,7 +72,11 @@
         <el-table-column label="联系电话" prop="contactNumber" />
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="addRent(scope.row.id)"
+            <el-button
+              v-permission="'park:rent:add_surrender'"
+              size="mini"
+              type="text"
+              @click="addRent(scope.row.id)"
               >添加合同</el-button
             >
             <el-dialog
@@ -127,15 +136,21 @@
               </template>
             </el-dialog>
             <el-button
+              v-permission="'park:enterprise:query'"
               size="mini"
               type="text"
               @click="$router.push(`/exterpriseDetail?id=${scope.row.id}`)"
               >查看</el-button
             >
-            <el-button size="mini" type="text" @click="editRent(scope.row.id)"
+            <el-button
+              v-permission="'park:enterprise:add_edit'"
+              size="mini"
+              type="text"
+              @click="editRent(scope.row.id)"
               >编辑</el-button
             >
             <el-button
+              v-permission="'park:enterprise:remove'"
               size="mini"
               type="text"
               @click="delExterprise(scope.row.id)"
